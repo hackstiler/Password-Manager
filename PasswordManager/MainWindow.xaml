@@ -1,0 +1,108 @@
+﻿<Window x:Class="PasswordManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PasswordManager"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="610" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="#1a1a1a">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="500"/>
+            <RowDefinition Height="25"/>
+
+        </Grid.RowDefinitions>
+
+        <!-- Границы верхней части, где располагается поиск и 
+        кнопка создания профиля -->
+        <Border Grid.Row="1"
+                Name="Border_Vertical">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="590"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="25"/>
+                </Grid.ColumnDefinitions>
+
+                <ui:AutoSuggestBox Grid.Column="1"
+                                   FontSize="12"
+                                   Background="#26272b"
+                                   Width="590"
+                                   Height="35"/>
+
+                <ui:Button Content="Создать профиль"
+                           Grid.Column="3"
+                           Background="#3c3bff"
+                           Width="150"
+                           Height="35"
+                           CornerRadius="10"
+                           Name="Btn_CreateProfile" 
+                           Click="Btn_CreateProfile_Click"/>
+            </Grid>
+
+        </Border>
+
+        <!-- Границы нижней части, где будут располагаться профили -->
+        <Border Grid.Row="2"
+                Background="#26272b"
+                Width="750"
+                Height="500"
+                CornerRadius="10"
+                Name="Border_ProfileList">
+            <!-- Грид, где будет располагаться верхний текст, типо ник сайт и тд -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65"/>
+                    <RowDefinition Height="435"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Height="65" Width="750">
+                    <Grid>
+
+                    </Grid>
+                </Border>
+
+                <!-- стак панель, в котором будут отображаться профили -->
+                <StackPanel Grid.Row="1"
+                            Height="435"
+                            Width="750"
+                            x:Name="StackPanel_Profile">
+                    <Border Background="#212226"
+                            Height="75"
+                            Width="750">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="75"/>
+                                <ColumnDefinition Width="225"/>
+                                <ColumnDefinition Width="225"/>
+                                <ColumnDefinition Width="225"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ui:ImageIcon Height="50" 
+                                          Width="50"
+                                          Grid.Column="0"
+                                          Source="https://assets.habr.com/qna/6735d143/images/favicons/favicon.ico"/>
+
+                        </Grid>
+                    </Border>
+                    
+                </StackPanel>
+            </Grid>
+
+        </Border>
+
+
+    </Grid>
+</Window>
