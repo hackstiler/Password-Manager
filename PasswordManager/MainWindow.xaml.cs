@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Wpf.Ui.Controls;
 
 namespace PasswordManager
 {
@@ -21,19 +22,43 @@ namespace PasswordManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        static public MainWindow window;
+
+
+        
+
         public MainWindow()
         {
             InitializeComponent();
-
-            
+            window = this;
         }
 
         private void Btn_CreateProfile_Click(object sender, RoutedEventArgs e)
         {
             ProfileModel profile = new ProfileModel();
+            profile.websiteName = "gg";
+            profile.websiteURL = "gg.com";
+            profile.login = "dasdasdasdasda";
             StackPanel_Profile.Children.Add(profile.CreateProfile());
+
+            Border separatorBorder = new Border();
+            separatorBorder.Height = 2;
+            StackPanel_Profile.Children.Add(separatorBorder);
+
+
             Console.WriteLine("click");
 
         }
+
+        private void Drag(object sender, RoutedEventArgs e)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
+            {
+                window.DragMove();
+                Console.WriteLine("drag");  
+            }
+        }
+
+
     }
 }

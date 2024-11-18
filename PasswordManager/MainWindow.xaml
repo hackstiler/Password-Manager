@@ -12,15 +12,21 @@
         ResizeMode="NoResize"
         Background="#1a1a1a">
 
-    <Grid>
+    <Grid MouseDown="Drag">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="75"/>
             <RowDefinition Height="500"/>
             <RowDefinition Height="25"/>
 
         </Grid.RowDefinitions>
+
+        
+        <!-- элементы для копирования в c# код -->
+       <!-- Перекрытие вспомогательных элементов -->
+        <Rectangle Width="808" Height="610" Fill="#1a1a1a"/>
+
 
         <!-- Границы верхней части, где располагается поиск и 
         кнопка создания профиля -->
@@ -69,40 +75,137 @@
                 </Grid.RowDefinitions>
                 <Border Grid.Row="0" Height="65" Width="750">
                     <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="225"/>
+                            <ColumnDefinition Width="225"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Website"
+                               Grid.Column="0"
+                               Foreground="#555b6a"
+                               HorizontalAlignment="Left"
+                               Margin="20"
+                               VerticalAlignment="Center"/>
+
+                        <Label Content="Username"
+                               Grid.Column="1"
+                               Foreground="#555b6a"
+                               HorizontalAlignment="Left"
+                               Margin="10"
+                               VerticalAlignment="Center"/>
+
+                        <Label Content="Password"
+                               Grid.Column="2"
+                               Foreground="#555b6a"
+                               HorizontalAlignment="Left"
+                               Margin="10"
+                               VerticalAlignment="Center"/>
 
                     </Grid>
                 </Border>
 
                 <!-- стак панель, в котором будут отображаться профили -->
-                <StackPanel Grid.Row="1"
-                            Height="435"
+                <ScrollViewer Grid.Row="1">
+                    <StackPanel Height="435"
                             Width="750"
-                            x:Name="StackPanel_Profile">
-                    <Border Background="#212226"
+                            x:Name="StackPanel_Profile"
+                            
+                            ScrollViewer.VerticalScrollBarVisibility="Visible">
+
+                        <!-- Test Profile -->
+
+                        <Border Height="2"/>
+                        <Border Background="#212226"
                             Height="75"
                             Width="750">
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="75"/>
-                                <ColumnDefinition Width="225"/>
-                                <ColumnDefinition Width="225"/>
-                                <ColumnDefinition Width="225"/>
-                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="75"/>
+                                    <ColumnDefinition Width="225"/>
+                                    <ColumnDefinition Width="225"/>
+                                    <ColumnDefinition Width="225"/>
+                                </Grid.ColumnDefinitions>
 
-                            <ui:ImageIcon Height="50" 
+                                <!-- Icon -->
+                                <ui:ImageIcon Height="50" 
                                           Width="50"
                                           Grid.Column="0"
                                           Source="https://assets.habr.com/qna/6735d143/images/favicons/favicon.ico"/>
 
-                        </Grid>
-                    </Border>
-                    
-                </StackPanel>
+                                <!-- Website name -->
+
+                                <TextBlock Text="Habr"
+                                       Foreground="White"
+                                       FontSize="16"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,0,25"/>
+
+                                <!-- Website url -->
+                                <TextBlock FontSize="14"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="0,0,0,-20"><Hyperlink NavigateUri="https://habr.com/"
+                                           Foreground="#555b6a"><Run Text="https://habr.com/"/></Hyperlink></TextBlock>
+
+                                <!-- Login -->
+
+                                <StackPanel Grid.Column="2"
+                                            Orientation="Horizontal">
+                                    <Border Width="10"/>
+
+                                    <TextBlock Text="login.example.com"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"/>
+
+                                    <Border Width="10"/>
+
+                                    <ui:Button Height="25">
+
+                                        <ui:SymbolIcon Symbol="Copy16"
+                                                   Foreground="White"
+                                                   Margin="-10"/>
+                                    </ui:Button>
+                                </StackPanel>
+
+                                <!-- Password -->
+
+                                <StackPanel Grid.Column="3"
+                                            Orientation="Horizontal">
+                                    <Border Width="10"/>
+                                    <ui:PasswordBox Text="12345678"
+                                                    IsReadOnly="True"/>
+
+                                    <Border Width="10"/>
+
+                                    <ui:Button Height="25">
+
+
+
+                                        <ui:SymbolIcon Symbol="Copy16"
+                                                       Foreground="White"
+                                                       Margin="-10"/>
+                                    </ui:Button>
+                                </StackPanel>
+
+
+                            </Grid>
+                        </Border>
+
+                    </StackPanel>
+                </ScrollViewer>
             </Grid>
 
         </Border>
 
+
+        <ui:SymbolIcon Name="symbolCopy16" Symbol="Copy16"
+               Foreground="White"
+               Margin="-10"/>
 
     </Grid>
 </Window>
