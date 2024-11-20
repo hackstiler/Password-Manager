@@ -60,7 +60,7 @@ namespace PasswordManager.Models
         public Border CreateProfile()
         {
             Border mainBorder = new Border();
-            mainBorder.Height = 75; 
+            mainBorder.Height = 75;
 
             //grid creations
             Grid grid = new Grid();
@@ -70,16 +70,16 @@ namespace PasswordManager.Models
             ColumnDefinition tempColumm3 = new ColumnDefinition();
             ColumnDefinition tempColumm4 = new ColumnDefinition();
 
-            tempColumm1.Width = new GridLength(75); 
-            tempColumm2.Width = new GridLength(225); 
-            tempColumm3.Width = new GridLength(225); 
-            tempColumm4.Width = new GridLength(225); 
+            tempColumm1.Width = new GridLength(75);
+            tempColumm2.Width = new GridLength(225);
+            tempColumm3.Width = new GridLength(225);
+            tempColumm4.Width = new GridLength(225);
 
             grid.ColumnDefinitions.Add(tempColumm1);
             grid.ColumnDefinitions.Add(tempColumm2);
             grid.ColumnDefinitions.Add(tempColumm3);
             grid.ColumnDefinitions.Add(tempColumm4);
-            
+
 
             //Icon ----
             Wpf.Ui.Controls.ImageIcon imageIcon = new Wpf.Ui.Controls.ImageIcon();
@@ -91,14 +91,13 @@ namespace PasswordManager.Models
             bi3.UriSource = new Uri("\"C:\\Users\\serge\\Desktop\\snake_got.jpg\"", UriKind.Relative);
             bi3.EndInit();
 
-            imageIcon.Source = bi3 ;
+            imageIcon.Source = bi3;
 
             Grid.SetColumn(imageIcon, 0);
-            grid.Children.Add(imageIcon);
 
 
             mainBorder.Child = grid;
-            mainBorder.Background = (SolidColorBrush) new BrushConverter().ConvertFrom("#212226");
+            mainBorder.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#212226");
 
 
             //website name ----
@@ -113,7 +112,7 @@ namespace PasswordManager.Models
 
             websiteName.Text = _websiteName;
 
-            
+
 
             //website url ----
             System.Windows.Controls.TextBlock websiteURL = new System.Windows.Controls.TextBlock();
@@ -126,8 +125,8 @@ namespace PasswordManager.Models
             websiteURL.Margin = new Thickness(0, 0, 0, -20);
 
             websiteURL.Text = _websiteURL;
-            
-            
+
+
             //Login ----
 
             //stackpanel
@@ -140,7 +139,7 @@ namespace PasswordManager.Models
             //border1
             Border loginBorder1 = new Border();
             loginBorder1.Width = 10;
-            
+
             loginPanel.Children.Add(loginBorder1);
 
             //textblock
@@ -173,56 +172,50 @@ namespace PasswordManager.Models
 
             //Password ----
             //stackpanel
-            StackPanel loginPassword = new StackPanel();
-            loginPanel.Height = 75;
-            loginPanel.Width = 225;
-            loginPanel.Orientation = Orientation.Horizontal;
-            Grid.SetColumn(loginPanel, 2);
+            StackPanel passwordPanel = new StackPanel();
+            passwordPanel.Height = 75;
+            passwordPanel.Width = 225;
+            passwordPanel.Orientation = Orientation.Horizontal;
+            Grid.SetColumn(passwordPanel, 3);
 
             //border1
-            Border loginBorder11 = new Border();
-            loginBorder1.Width = 10;
+            Border passwordBorder1 = new Border();
+            passwordBorder1.Width = 10;
 
-            loginPanel.Children.Add(loginBorder1);
+            passwordPanel.Children.Add(passwordBorder1);
 
-            //textblock
-            System.Windows.Controls.TextBlock passwordTextBlock = new System.Windows.Controls.TextBlock();
-            loginTextBlock.Text = _login;
-            loginTextBlock.Foreground = Brushes.White;
-            loginTextBlock.VerticalAlignment = VerticalAlignment.Center;
+            //passwordBox
+            Wpf.Ui.Controls.PasswordBox passwordBox = new Wpf.Ui.Controls.PasswordBox();
+            passwordBox.Text = _password;
+            passwordBox.IsReadOnly = true;
 
-            loginPanel.Children.Add(loginTextBlock);
+            passwordPanel.Children.Add(passwordBox   );
 
             //border2
-            Border loginBorder21 = new Border();
-            loginBorder2.Width = 10;
+            Border passwordBorder2 = new Border();
+            passwordBorder2.Width = 10;
 
-            loginPanel.Children.Add(loginBorder2);
-
-
+            passwordPanel.Children.Add(passwordBorder2);
 
             //ui button
             Wpf.Ui.Controls.Button passwordButton = new Wpf.Ui.Controls.Button();
-            loginButton.Height = 25;
-            loginButton.Foreground = Brushes.White;
-            loginButton.VerticalAlignment = VerticalAlignment.Center;
-            loginButton.Width = 25;
+            passwordButton.Height = 25;
+            passwordButton.Foreground = Brushes.White;
+            passwordButton.VerticalAlignment = VerticalAlignment.Center;
+            passwordButton.Width = 25;
 
+            passwordPanel.Children.Add(passwordButton);
 
             // добавить символ копирования -----------------------------------------------------------------------------------------------
 
-            loginPanel.Children.Add(passwordButton);
 
-
-
-            // grid chikldren add
+            grid.Children.Add(imageIcon);
             grid.Children.Add(websiteName);
             grid.Children.Add(websiteURL);
             grid.Children.Add(loginPanel);
-            grid.Children.Add(loginPassword);
+            grid.Children.Add(passwordPanel);
+
             return mainBorder;
         }
-        
-
     }
 }

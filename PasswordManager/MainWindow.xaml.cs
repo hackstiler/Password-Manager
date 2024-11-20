@@ -25,7 +25,9 @@ namespace PasswordManager
         static public MainWindow window;
 
 
-        
+
+        RegistrationProfileWindow registrationProfileWindow;
+        int num = 0;
 
         public MainWindow()
         {
@@ -36,14 +38,21 @@ namespace PasswordManager
         private void Btn_CreateProfile_Click(object sender, RoutedEventArgs e)
         {
             ProfileModel profile = new ProfileModel();
-            profile.websiteName = "gg";
+            profile.websiteName = "gg" + num; num++;
             profile.websiteURL = "gg.com";
             profile.login = "dasdasdasdasda";
+            profile.password = "12345678";
             StackPanel_Profile.Children.Add(profile.CreateProfile());
 
             Border separatorBorder = new Border();
             separatorBorder.Height = 2;
             StackPanel_Profile.Children.Add(separatorBorder);
+
+
+            registrationProfileWindow = new RegistrationProfileWindow();
+            registrationProfileWindow.Owner = this;
+
+            registrationProfileWindow.Show();
 
 
             Console.WriteLine("click");
