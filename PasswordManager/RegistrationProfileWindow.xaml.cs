@@ -29,6 +29,7 @@ namespace PasswordManager
             encryption_combobox.ItemsSource = Enum.GetValues(typeof(Profile.EncryptionType));
             encryption_combobox.SelectedValue = Profile.EncryptionType.gg;
 
+
         }
 
         private void Cancel_Btn_Click(object sender, RoutedEventArgs e)
@@ -64,11 +65,22 @@ namespace PasswordManager
             db.Profiles.Add(profile);
             db.SaveChanges();
 
+
+            MainWindow.window.collectingВatafromDB();
             //закрытие 
             this.Close();
 
 
             //
+        }
+
+        private void update_LayoutUpdated(object sender, EventArgs e)
+        {
+            if (Login_textbox.Text != "" && Password_textbox.Text != "" && ProfileName_textbox.Text != "")
+            {
+                CreateProfile_Btn.IsEnabled = true;
+            }
+            else CreateProfile_Btn.IsEnabled = false;
         }
     }
 }

@@ -21,22 +21,22 @@ namespace PasswordManager.Models
             gg, bb
         }
 
-        private string _websiteName;
-        private string _websiteURL;
+        private string _profileName;
+        private string _websiteAdress;
         private string _login;
         private string _password;
         private TypeOfEncryption _typeEncryption;
 
-        public string websiteName
+        public string profileName
         {
-            get { return _websiteName; }
-            set { _websiteName = value; }
+            get { return _profileName; }
+            set { _profileName = value; }
         }
 
-        public string websiteURL
+        public string websiteAdress
         {
-            get { return _websiteURL; }
-            set { _websiteURL = value; }
+            get { return _websiteAdress; }
+            set { _websiteAdress = value; }
         }
         public string login
         {
@@ -101,30 +101,30 @@ namespace PasswordManager.Models
 
 
             //website name ----
-            System.Windows.Controls.TextBlock websiteName = new System.Windows.Controls.TextBlock();
+            System.Windows.Controls.TextBlock profileName = new System.Windows.Controls.TextBlock();
 
-            websiteName.Foreground = Brushes.White;
-            websiteName.FontSize = 16;
-            Grid.SetColumn(websiteName, 1);
-            websiteName.HorizontalAlignment = HorizontalAlignment.Left;
-            websiteName.VerticalAlignment = VerticalAlignment.Center;
-            websiteName.Margin = new Thickness(0, 0, 0, 25);
+            profileName.Foreground = Brushes.White;
+            profileName.FontSize = 16;
+            Grid.SetColumn(profileName, 1);
+            profileName.HorizontalAlignment = HorizontalAlignment.Left;
+            profileName.VerticalAlignment = VerticalAlignment.Center;
+            profileName.Margin = new Thickness(0, 0, 0, 25);
 
-            websiteName.Text = _websiteName;
+            profileName.Text = _profileName;
 
 
 
             //website url ----
-            System.Windows.Controls.TextBlock websiteURL = new System.Windows.Controls.TextBlock();
+            System.Windows.Controls.TextBlock websiteAdress = new System.Windows.Controls.TextBlock();
 
-            websiteURL.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#555b6a"); ;
-            websiteURL.FontSize = 14;
-            Grid.SetColumn(websiteURL, 1);
-            websiteURL.HorizontalAlignment = HorizontalAlignment.Left;
-            websiteURL.VerticalAlignment = VerticalAlignment.Center;
-            websiteURL.Margin = new Thickness(0, 0, 0, -20);
+            websiteAdress.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#555b6a"); ;
+            websiteAdress.FontSize = 14;
+            Grid.SetColumn(websiteAdress, 1);
+            websiteAdress.HorizontalAlignment = HorizontalAlignment.Left;
+            websiteAdress.VerticalAlignment = VerticalAlignment.Center;
+            websiteAdress.Margin = new Thickness(0, 0, 0, -20);
 
-            websiteURL.Text = _websiteURL;
+            websiteAdress.Text = _websiteAdress;
 
 
             //Login ----
@@ -188,6 +188,7 @@ namespace PasswordManager.Models
             Wpf.Ui.Controls.PasswordBox passwordBox = new Wpf.Ui.Controls.PasswordBox();
             passwordBox.Text = _password;
             passwordBox.IsReadOnly = true;
+            passwordBox.ClearButtonEnabled = false;
 
             passwordPanel.Children.Add(passwordBox   );
 
@@ -210,8 +211,8 @@ namespace PasswordManager.Models
 
 
             grid.Children.Add(imageIcon);
-            grid.Children.Add(websiteName);
-            grid.Children.Add(websiteURL);
+            grid.Children.Add(profileName);
+            grid.Children.Add(websiteAdress);
             grid.Children.Add(loginPanel);
             grid.Children.Add(passwordPanel);
 
