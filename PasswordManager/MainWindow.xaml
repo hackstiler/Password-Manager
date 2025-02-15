@@ -149,9 +149,10 @@
 
             </Border>
 
+            <!-- sdsd
             <ui:SymbolIcon Name="symbolCopy16" Symbol="Copy16"
                Foreground="White"
-               Margin="-10"/>
+               Margin="-10"/> -->
 
         </Grid>
         

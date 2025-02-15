@@ -42,6 +42,7 @@ namespace PasswordManager
         private const string Alphanumerical = "0123456789";
         private const string Symbols = @"#¤%&/\()=?@£$€{[]}:;^´`½§_,.!*+-";
 
+        public static string keyWord = "1emon!e";
 
         public enum EncryptionType
         {
@@ -78,7 +79,7 @@ namespace PasswordManager
             {
                 //Шифр Виженера
                 case EncryptionType.encryptionVigenere:
-                    finalPassword = TextToVigenereEncryption(password,"1eM0n!e");
+                    finalPassword = TextToVigenereEncryption(password,keyWord);
                     break;
                 //Шифр Цезаря
                 case EncryptionType.encryptionCaesar:
@@ -100,7 +101,7 @@ namespace PasswordManager
             {
                 //Шифр Виженера
                 case EncryptionType.encryptionVigenere:
-                    finalPassword = VigenereEncryptionTextToText(password, "1eM0n!e");
+                    finalPassword = VigenereEncryptionTextToText(password, keyWord);
                     break;
                 //Шифр Цезаря
                 case EncryptionType.encryptionCaesar:
@@ -111,6 +112,16 @@ namespace PasswordManager
 
 
             return finalPassword;
+        }
+
+        public string p_TextToVigenereEncryption(string originalPassword, string originalKeyWord)
+        {
+            return TextToVigenereEncryption(originalPassword, originalKeyWord);
+        }
+
+        public string p_VigenereEncryptionTextToText(string encryptionPassword, string originalKeyWord)
+        {
+            return VigenereEncryptionTextToText(encryptionPassword,originalKeyWord);
         }
 
         //текст в шифрования виженера
@@ -165,6 +176,7 @@ namespace PasswordManager
         //зашифрованииное слово кодом виженера в расшифрованный текст
         private string VigenereEncryptionTextToText(string encryptionPassword, string originalKeyWord)
         {
+            Console.WriteLine($"------------------------------------------------------------{keyWord}-----------------------------------------------");
             //начальные переменные
             char[] encryptionPasswordChars = encryptionPassword.ToCharArray();
             char[] KeyWordChars = new char[encryptionPasswordChars.Length];

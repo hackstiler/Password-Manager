@@ -1,0 +1,156 @@
+﻿<Window x:Class="PasswordManager.Windows.FirstLaunchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PasswordManager"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        mc:Ignorable="d"
+        Title="RegistrationProfileWindow" 
+        Height="315" 
+        Width="350"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent" >
+    <Grid MouseDown="Drag" LayoutUpdated="update_LayoutUpdated">
+
+
+        <Border Background="#1a1a1a"
+                CornerRadius="10"/>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+
+            <Border Height="40"
+                Width="325"
+                Background="#26272b"
+                CornerRadius="10"
+                Grid.Row="0">
+                <TextBlock Text="Добро пожаловать"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="24"
+                       Foreground="#848484"/>
+
+            </Border>
+
+            <Border Height="150"
+                Width="325"
+                Background="#26272b"
+                CornerRadius="10"
+                Grid.Row="1">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="75"/>
+                        <RowDefinition Height="75"/>
+                    </Grid.RowDefinitions>
+
+
+                    <!-- Пароль при входе -->
+                    <TextBlock Text="Пароль при входе*"
+                           VerticalAlignment="Center"
+                           FontSize="17"
+                           Foreground="#848484"
+                           Margin="15,0,15,35"
+                           Grid.Row="0"/>
+                    <ui:TextBox Name="Password_textbox"
+                            Width="300"
+                            Height="35"
+                            Margin="0,30,0,0"
+                            Grid.Row="0"
+                            PlaceholderText="напишите пароль..."
+                            FontSize="16"
+                            Padding="10,5,0,0"/>
+
+                    <!-- Ключевое слово(нужно для шифрования) -->
+                    <TextBlock Text="Ключевое слово для шифрования"
+                           VerticalAlignment="Center"
+                           FontSize="17"
+                           Foreground="#848484"
+                           Margin="15,0,15,35"
+                           Grid.Row="1"/>
+
+                    <ui:TextBox Name="KeyWord_textbox"
+                            Width="300"
+                            Height="35"
+                            Margin="0,30,0,0"
+                            Grid.Row="1"
+                            PlaceholderText="напишите адрес сайта..."
+                            FontSize="16"
+                            Padding="10,5,0,0"/>
+                    
+                </Grid>
+
+            </Border>
+            
+            
+            <!-- Кнопка "Продолжить" -->
+            <Border Height="40"
+                Width="325"
+                Grid.Row="3">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="325"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <ui:Button Name="Next_Btn"
+                           HorizontalAlignment="Center"
+                           Height="30"
+                           Width="325"
+                           Background="#3c3bff"
+                           CornerRadius="10"
+                           Foreground="White"
+                           Content="Продолжить"
+                           FontSize="15"
+                           Grid.Column="1"
+                           Click="Next_Btn_Click"/>
+
+                </Grid>
+
+            </Border>
+
+            <!-- Кнопка "Выход" -->
+            <Border Height="40"
+                Width="325"
+                Grid.Row="4">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="325"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <ui:Button Name="Exit_Btn"
+                           HorizontalAlignment="Center"
+                           Height="30"
+                           Width="325"
+                           Background="#26272b"
+                           CornerRadius="10"
+                           Foreground="#848484"
+                           Content="Выход"
+                           FontSize="15"
+                           Grid.Column="1"
+                           Click="Exit_Btn_Click"/>
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+        <Rectangle x:Name="testr" Fill="Black" Visibility="Hidden"/>
+        <Label Name="testl" Content="gg" VerticalAlignment="Center"
+               HorizontalAlignment="Center" Visibility="Hidden"/>
+
+    </Grid>
+</Window>

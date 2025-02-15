@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Wpf.Ui.Controls;
 using static System.Net.WebRequestMethods;
 
@@ -21,7 +25,8 @@ namespace PasswordManager.Models
         private string _password;
         private Encoder.EncryptionType _encryptionType = Encoder.EncryptionType.None;
         private Encoder _encoder = new Encoder();
-
+        private BitmapImage _profileImage;
+        
         public Encoder.EncryptionType EncryptionType
         {
             get {return _encryptionType; }
@@ -83,15 +88,27 @@ namespace PasswordManager.Models
 
             //Icon ----
             Wpf.Ui.Controls.ImageIcon imageIcon = new Wpf.Ui.Controls.ImageIcon();
-            imageIcon.Height = 50;
-            imageIcon.Width = 50;
+            imageIcon.Height = 32;
+            imageIcon.Width = 32;
 
-            BitmapImage bi3 = new BitmapImage();
-            bi3.BeginInit();
-            bi3.UriSource = new Uri("\"C:\\Users\\serge\\Desktop\\snake_got.jpg\"", UriKind.Relative);
-            bi3.EndInit();
 
-            imageIcon.Source = bi3;
+            _profileImage = new BitmapImage(new Uri("pack://application:,,,/Assets/ProfileIcon_4.png"));
+
+            
+            Task.Run(async () =>
+            {
+                var Icon = await FaviconHelper.GetFaviconAsync(_websiteAdress);
+                
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    imageIcon.Source = Icon;
+                });
+            });
+
+            if(imageIcon.Source == null)
+            {
+                imageIcon.Source = _profileImage;
+            }
 
             Grid.SetColumn(imageIcon, 0);
 
@@ -217,6 +234,58 @@ namespace PasswordManager.Models
             grid.Children.Add(passwordPanel);
 
             return mainBorder;
+        }
+    }
+
+
+
+
+
+    public static class FaviconHelper
+    {
+        public static Task<BitmapImage> GetFaviconAsync(string url)
+        {
+            return Task.Run(async () =>
+            {
+                try
+                {
+                    if (!url.Contains("https://"))
+                    {
+                        url = "https://" + url;
+                    }
+
+                    var uri = new Uri(url);
+                    string faviconUrl = $"{uri.Scheme}://{uri.Host}/favicon.ico";
+
+                    using (var client = new HttpClient())
+                    using (var response = await client.GetAsync(faviconUrl))
+                    {
+                        if (!response.IsSuccessStatusCode)
+                            return new BitmapImage(new Uri("pack://application:,,,/Assets/ProfileIcon_2.png")); ;
+                            
+
+                        using (var stream = await response.Content.ReadAsStreamAsync())
+                        {
+                            return LoadBitmapImage(stream);
+                        }
+                    }
+                }
+                catch
+                {
+                    return new BitmapImage(new Uri(@"pack://application:,,,/Assets/ProfileIcon_2.png")); ;
+                }
+            });
+        }
+
+        private static BitmapImage LoadBitmapImage(Stream stream)
+        {
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.StreamSource = stream;
+            bitmap.EndInit();
+            bitmap.Freeze();
+            return bitmap;
         }
     }
 }

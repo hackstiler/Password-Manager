@@ -1,4 +1,5 @@
 ﻿using PasswordManager.Models;
+using PasswordManager.Windows;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration.Configuration;
@@ -29,15 +30,29 @@ namespace PasswordManager
         ApplicationContext db;
 
         RegistrationProfileWindow registrationProfileWindow;
-        int num = 0;
+        FirstLaunchWindow firstLaunchWindow;
+        VerificationWindow verificationWindow;
 
+        
         public MainWindow()
         {
+            /*if (Properties.Settings.Default.FirstLaunch)
+            {
+                firstLaunchWindow = new FirstLaunchWindow();
+                firstLaunchWindow.ShowDialog();
+            }
+            else
+            {
+                verificationWindow = new VerificationWindow();
+                verificationWindow.ShowDialog();
+
+            }*/
+
             InitializeComponent();
             db = new ApplicationContext();
             window = this;
-
             collectingDatafromDB();
+
         }
 
         private void Btn_CreateProfile_Click(object sender, RoutedEventArgs e)
@@ -101,6 +116,5 @@ namespace PasswordManager
                 StackPanel_Profile.Children.Add(separatorBorder);
             }
         }
-
     }
 }

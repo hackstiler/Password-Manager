@@ -59,7 +59,7 @@
 
                 
                 <!-- Имя профиля -->
-                <TextBlock Text="Имя профиля"
+                <TextBlock Text="Имя профиля*"
                            VerticalAlignment="Center"
                            FontSize="17"
                            Foreground="#848484"
@@ -92,7 +92,7 @@
                             Padding="10,5,0,0"/>
 
                 <!-- Логин -->
-                <TextBlock Text="Логин"
+                <TextBlock Text="Логин*"
                            VerticalAlignment="Center"
                            FontSize="17"
                            Foreground="#848484"
@@ -108,7 +108,7 @@
                             Padding="10,5,0,0"/>
 
                 <!-- Пароль -->
-                <TextBlock Text="Пароль"
+                <TextBlock Text="Пароль*"
                            VerticalAlignment="Center"
                            FontSize="17"
                            Foreground="#848484"
