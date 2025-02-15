@@ -8,47 +8,50 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="610" Width="800"
         WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Background="#1a1a1a">
+        Background="Transparent">
 
     <Grid MouseDown="Drag">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="75"/>
-            <RowDefinition Height="500"/>
-            <RowDefinition Height="25"/>
+        <Border Background="#1a1a1a" CornerRadius="10"/>
 
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="500"/>
+                <RowDefinition Height="25"/>
 
-        
-        <!-- элементы для копирования в c# код -->
-       <!-- Перекрытие вспомогательных элементов -->
-        <Rectangle Width="808" Height="610" Fill="#1a1a1a"/>
+            </Grid.RowDefinitions>
 
 
-        <!-- Границы верхней части, где располагается поиск и 
+            <!-- элементы для копирования в c# код -->
+            <!-- Перекрытие вспомогательных элементов -->
+
+
+            <!-- Границы верхней части, где располагается поиск и 
         кнопка создания профиля -->
-        <Border Grid.Row="1"
+            <Border Grid.Row="1"
                 Name="Border_Vertical">
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="590"/>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="25"/>
-                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="590"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="25"/>
+                    </Grid.ColumnDefinitions>
 
-                <ui:AutoSuggestBox Grid.Column="1"
+                    <ui:AutoSuggestBox Grid.Column="1"
                                    FontSize="12"
                                    Background="#26272b"
                                    Width="590"
                                    Height="35"/>
 
-                <ui:Button Content="Создать профиль"
+                    <ui:Button Content="Создать профиль"
                            Grid.Column="3"
                            Background="#3c3bff"
                            Width="150"
@@ -56,95 +59,108 @@
                            CornerRadius="10"
                            Name="Btn_CreateProfile" 
                            Click="Btn_CreateProfile_Click"/>
-            </Grid>
+                </Grid>
 
-        </Border>
+            </Border>
 
-        <!-- Границы нижней части, где будут располагаться профили -->
-        <Border Grid.Row="2"
+            <!-- Границы нижней части, где будут располагаться профили -->
+            <Border Grid.Row="2"
                 Background="#26272b"
                 Width="750"
                 Height="500"
                 CornerRadius="10"
                 Name="Border_ProfileList">
-            <!-- Грид, где будет располагаться верхний текст, типо ник сайт и тд -->
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="65"/>
-                    <RowDefinition Height="435"/>
-                </Grid.RowDefinitions>
-                <Border Grid.Row="0" Height="65" Width="750">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="300"/>
-                            <ColumnDefinition Width="225"/>
-                            <ColumnDefinition Width="225"/>
-                        </Grid.ColumnDefinitions>
+                <!-- Грид, где будет располагаться верхний текст, типо ник сайт и тд -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="65"/>
+                        <RowDefinition Height="435"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Height="65" Width="750">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="285"/>
+                                <ColumnDefinition Width="210"/>
+                                <ColumnDefinition Width="210"/>
+                                <ColumnDefinition Width="45"/>
+                            </Grid.ColumnDefinitions>
 
-                        <Label Content="Website"
+                            <Label Content="Website"
                                Grid.Column="0"
                                Foreground="#848484"
                                HorizontalAlignment="Left"
                                Margin="20"
                                VerticalAlignment="Center"/>
 
-                        <Label Content="Username"
+                            <Label Content="Username"
                                Grid.Column="1"
                                Foreground="#848484"
                                HorizontalAlignment="Left"
                                Margin="10"
                                VerticalAlignment="Center"/>
 
-                        <Label Content="Password"
+                            <Label Content="Password"
                                Grid.Column="2"
                                Foreground="#848484"
                                HorizontalAlignment="Left"
                                Margin="10"
                                VerticalAlignment="Center"/>
 
-                    </Grid>
-                </Border>
+                        </Grid>
+                    </Border>
 
-                <!-- стак панель, в котором будут отображаться профили -->
-                <ScrollViewer Grid.Row="1"
+                    <!-- стак панель, в котором будут отображаться профили -->
+                    <ScrollViewer Grid.Row="1"
                               Height="435"
                               Width="750"
                               CanContentScroll="True"
                               ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    
-                    
-                <StackPanel Height="435"
+
+
+                        <StackPanel Height="435"
                             Width="750"
                             x:Name="StackPanel_Profile">
-                    <Border Background="#212226"
+                            <Border Background="#212226"
                             Height="75"
                             Width="750">
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="75"/>
-                                <ColumnDefinition Width="225"/>
-                                <ColumnDefinition Width="225"/>
-                                <ColumnDefinition Width="225"/>
-                            </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="210"/>
+                                        <ColumnDefinition Width="210"/>
+                                        <ColumnDefinition Width="210"/>
+                                        <ColumnDefinition Width="45"/>
+                                    </Grid.ColumnDefinitions>
 
-                            <ui:ImageIcon Height="50" 
+                                    <ui:ImageIcon Height="50" 
                                           Width="50"
                                           Grid.Column="0"
                                           Source="https://assets.habr.com/qna/6735d143/images/favicons/favicon.ico"/>
 
-                        </Grid>
-                    </Border>
 
-                </StackPanel>
-                </ScrollViewer>
-            </Grid>
 
-        </Border>
+                                </Grid>
+                            </Border>
 
-        <ui:SymbolIcon Name="symbolCopy16" Symbol="Copy16"
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+
+            </Border>
+
+            <ui:SymbolIcon Name="symbolCopy16" Symbol="Copy16"
                Foreground="White"
                Margin="-10"/>
+
+        </Grid>
+        
+        
+        <!-- добавить кнопку с троеточием для корректной работы 
+        с flayout, чтобы можно было удалять и изменять профили  -->
+		
+		<!-- Добавить toolbar (крестик, свернуть и т.д) -->
+
 
     </Grid>
 </Window>

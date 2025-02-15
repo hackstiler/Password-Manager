@@ -37,13 +37,13 @@ namespace PasswordManager
             db = new ApplicationContext();
             window = this;
 
-            collectingВatafromDB();
+            collectingDatafromDB();
         }
 
         private void Btn_CreateProfile_Click(object sender, RoutedEventArgs e)
         {
-            
-            
+
+
             /*ProfileModel profile = new ProfileModel();
             profile.profileName = "gg" + num; num++;
             profile.websiteAdress = "gg.com";
@@ -55,11 +55,10 @@ namespace PasswordManager
             separatorBorder.Height = 2;
             StackPanel_Profile.Children.Add(separatorBorder);*/
 
-            
 
             registrationProfileWindow = new RegistrationProfileWindow();
             registrationProfileWindow.Owner = this;
-            registrationProfileWindow.Show();
+            registrationProfileWindow.ShowDialog();
 
 
             Console.WriteLine("click");
@@ -76,7 +75,7 @@ namespace PasswordManager
         }
 
 
-        public void collectingВatafromDB()
+        public void collectingDatafromDB()
         {
             
             StackPanel_Profile.Children.Clear();
@@ -86,7 +85,11 @@ namespace PasswordManager
             foreach (var profile in profiles)
             {
 
+                var gg = profile.encryption;
+
+
                 ProfileModel profileModel = new ProfileModel();
+                profileModel.EncryptionType = Encoder.StringToEncryptionType(profile.encryption);
                 profileModel.profileName = profile.profileName;
                 profileModel.websiteAdress = profile.websiteAdress;
                 profileModel.login = profile.login;

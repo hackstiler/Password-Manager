@@ -15,17 +15,18 @@ namespace PasswordManager.Models
 {
     internal class ProfileModel
     {
-
-        public enum TypeOfEncryption
-        {
-            gg, bb
-        }
-
         private string _profileName;
         private string _websiteAdress;
         private string _login;
         private string _password;
-        private TypeOfEncryption _typeEncryption;
+        private Encoder.EncryptionType _encryptionType = Encoder.EncryptionType.None;
+        private Encoder _encoder = new Encoder();
+
+        public Encoder.EncryptionType EncryptionType
+        {
+            get {return _encryptionType; }
+            set { _encryptionType = value; }
+        }
 
         public string profileName
         {
@@ -51,11 +52,7 @@ namespace PasswordManager.Models
         }
 
 
-        public TypeOfEncryption typeEncryption
-        {
-            get { return _typeEncryption; }
-            set { _typeEncryption = value; }
-        }
+
 
         public Border CreateProfile()
         {
@@ -69,16 +66,19 @@ namespace PasswordManager.Models
             ColumnDefinition tempColumm2 = new ColumnDefinition();
             ColumnDefinition tempColumm3 = new ColumnDefinition();
             ColumnDefinition tempColumm4 = new ColumnDefinition();
+            ColumnDefinition tempColumm5 = new ColumnDefinition();
 
             tempColumm1.Width = new GridLength(75);
-            tempColumm2.Width = new GridLength(225);
-            tempColumm3.Width = new GridLength(225);
-            tempColumm4.Width = new GridLength(225);
+            tempColumm2.Width = new GridLength(210);
+            tempColumm3.Width = new GridLength(210);
+            tempColumm4.Width = new GridLength(210);
+            tempColumm5.Width = new GridLength(45);
 
             grid.ColumnDefinitions.Add(tempColumm1);
             grid.ColumnDefinitions.Add(tempColumm2);
             grid.ColumnDefinitions.Add(tempColumm3);
             grid.ColumnDefinitions.Add(tempColumm4);
+            grid.ColumnDefinitions.Add(tempColumm5);
 
 
             //Icon ----
@@ -186,11 +186,11 @@ namespace PasswordManager.Models
 
             //passwordBox
             Wpf.Ui.Controls.PasswordBox passwordBox = new Wpf.Ui.Controls.PasswordBox();
-            passwordBox.Text = _password;
+            passwordBox.Text =  _encoder.Decoding(_password,_encryptionType);
             passwordBox.IsReadOnly = true;
             passwordBox.ClearButtonEnabled = false;
 
-            passwordPanel.Children.Add(passwordBox   );
+            passwordPanel.Children.Add(passwordBox);
 
             //border2
             Border passwordBorder2 = new Border();

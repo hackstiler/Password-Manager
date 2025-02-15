@@ -9,11 +9,12 @@ namespace PasswordManager
     internal class Profile
     {
 
-        public enum EncryptionType { gg,ss,tt} 
+        Encoder encoder = new Encoder();
+        
         public int id { get; set; }
         private string _login, _password, _profileName, _websiteAdress;
         
-        private string _encryption;
+        private Encoder.EncryptionType _encryption;
 
         public string login
         {
@@ -23,7 +24,7 @@ namespace PasswordManager
 
         public string password
         {
-            set { _password= value; }
+            set { _password = value; }
             get { return _password; }
         }
 
@@ -41,7 +42,7 @@ namespace PasswordManager
 
         public string encryption
         {
-            set { _encryption = value; }
+            set { _encryption = Encoder.StringToEncryptionType(value); }
             get { return _encryption.ToString(); }
         }
 
@@ -49,11 +50,11 @@ namespace PasswordManager
         
         public Profile(string login, string password, string profileName, string websiteAdress, string encryption)
         {
+            _encryption = Encoder.StringToEncryptionType(encryption);
             this.login = login;
-            this.password = password;
             this.profileName = profileName;
             this.websiteAdress = websiteAdress;
-            this.encryption = encryption;
+            this.password = encoder.Encoding(password,Encoder.StringToEncryptionType(encryption));
 
         }
 

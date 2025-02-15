@@ -26,8 +26,8 @@ namespace PasswordManager
         {
             InitializeComponent();
             db = new ApplicationContext();
-            encryption_combobox.ItemsSource = Enum.GetValues(typeof(Profile.EncryptionType));
-            encryption_combobox.SelectedValue = Profile.EncryptionType.gg;
+            encryption_combobox.ItemsSource = Enum.GetValues(typeof(Encoder.EncryptionType));
+            encryption_combobox.SelectedValue = Encoder.EncryptionType.encryptionVigenere;
 
 
         }
@@ -66,7 +66,7 @@ namespace PasswordManager
             db.SaveChanges();
 
 
-            MainWindow.window.collectingВatafromDB();
+            MainWindow.window.collectingDatafromDB();
             //закрытие 
             this.Close();
 
