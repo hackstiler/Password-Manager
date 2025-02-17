@@ -97,6 +97,12 @@ namespace PasswordManager
 
             List<Profile> profiles = db.Profiles.ToList();
 
+            if(profiles.Count == 0)
+            {
+                Hint_label.Opacity = 100;
+            }
+            else Hint_label.Opacity= 0;
+
             foreach (var profile in profiles)
             {
 
@@ -115,6 +121,43 @@ namespace PasswordManager
                 separatorBorder.Height = 2;
                 StackPanel_Profile.Children.Add(separatorBorder);
             }
+        }
+
+        private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (sender.Text != "" || sender.Text != " " || sender.Text != null)
+            {
+                StackPanel_Profile.Children.Clear();
+                List<Profile> profiles = db.Profiles.ToList();
+                foreach (var profile in profiles)
+                {
+                    ProfileModel profileModel = new ProfileModel();
+                    profileModel.EncryptionType = Encoder.StringToEncryptionType(profile.encryption);
+                    profileModel.profileName = profile.profileName;
+                    profileModel.websiteAdress = profile.websiteAdress;
+                    profileModel.login = profile.login;
+                    profileModel.password = profile.password;
+
+                    if (profileModel.profileName.Contains(sender.Text) || profileModel.websiteAdress.Contains(sender.Text) || profileModel.login.Contains(sender.Text))
+                    {
+                        StackPanel_Profile.Children.Add(profileModel.CreateProfile());
+                        Border separatorBorder = new Border();
+                        separatorBorder.Height = 2;
+                        StackPanel_Profile.Children.Add(separatorBorder);
+                    }
+                }
+            }
+            else collectingDatafromDB();
+        }
+
+        private void Setting_button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Exit_button_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

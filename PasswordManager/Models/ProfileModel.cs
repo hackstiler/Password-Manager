@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -164,6 +165,7 @@ namespace PasswordManager.Models
             loginTextBlock.Text = _login;
             loginTextBlock.Foreground = Brushes.White;
             loginTextBlock.VerticalAlignment = VerticalAlignment.Center;
+            loginTextBlock.Width = 150;
 
             loginPanel.Children.Add(loginTextBlock);
 
@@ -181,6 +183,7 @@ namespace PasswordManager.Models
             loginButton.Foreground = Brushes.White;
             loginButton.VerticalAlignment = VerticalAlignment.Center;
             loginButton.Width = 25;
+            loginButton.Click += CopyLogin_Click;
 
 
             // добавить символ копирования -----------------------------------------------------------------------------------------------
@@ -206,6 +209,7 @@ namespace PasswordManager.Models
             passwordBox.Text =  _encoder.Decoding(_password,_encryptionType);
             passwordBox.IsReadOnly = true;
             passwordBox.ClearButtonEnabled = false;
+            passwordBox.Width = 150;
 
             passwordPanel.Children.Add(passwordBox);
 
@@ -221,6 +225,7 @@ namespace PasswordManager.Models
             passwordButton.Foreground = Brushes.White;
             passwordButton.VerticalAlignment = VerticalAlignment.Center;
             passwordButton.Width = 25;
+            passwordButton.Click += CopyPassword_Click; 
 
             passwordPanel.Children.Add(passwordButton);
 
@@ -234,6 +239,26 @@ namespace PasswordManager.Models
             grid.Children.Add(passwordPanel);
 
             return mainBorder;
+        }
+
+        private void CopyPassword_Click(object sender, RoutedEventArgs e)
+        {
+            var data = new DataObject();
+            data.SetData(DataFormats.UnicodeText, _encoder.Decoding(_password, _encryptionType), true);
+            var thread = new Thread(() => Clipboard.SetDataObject(data, true));
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            thread.Join();
+        }
+
+        private void CopyLogin_Click(object sender, RoutedEventArgs e)
+        {
+            var data = new DataObject();
+            data.SetData(DataFormats.UnicodeText, _login, true);
+            var thread = new Thread(() => Clipboard.SetDataObject(data, true));
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            thread.Join();
         }
     }
 
@@ -287,5 +312,6 @@ namespace PasswordManager.Models
             bitmap.Freeze();
             return bitmap;
         }
+
     }
 }

@@ -43,7 +43,7 @@
 
             </Border>
 
-            <Border Height="150"
+            <Border Height="75"
                 Width="325"
                 Background="#26272b"
                 CornerRadius="10"

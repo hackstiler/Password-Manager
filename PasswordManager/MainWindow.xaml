@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PasswordManager"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
-        Title="MainWindow" Height="610" Width="800"
+        Title="MainWindow" Height="575" Width="800"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         WindowStyle="None"
@@ -15,13 +15,13 @@
 
     <Grid MouseDown="Drag">
 
-        <Border Background="#1a1a1a" CornerRadius="10"/>
+        <Border Background="#1a1a1a" CornerRadius="20"/>
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="55"/>
                 <RowDefinition Height="75"/>
-                <RowDefinition Height="500"/>
+                <RowDefinition Height="425"/>
                 <RowDefinition Height="25"/>
 
             </Grid.RowDefinitions>
@@ -30,6 +30,62 @@
             <!-- элементы для копирования в c# код -->
             <!-- Перекрытие вспомогательных элементов -->
 
+
+            <!-- Панель инструменотов( выход, настройки) -->
+
+            <Border Grid.Row="0"
+                    Name="Border_ToolPanel">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="565"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="15"/>
+                        <ColumnDefinition Width="25"/>
+                    </Grid.ColumnDefinitions>
+
+
+                    <!-- кнопка закрытия -->
+                    <ui:Image Source="Assets/close_button.png"
+                              Grid.Column="4"
+                              Height="15"
+                              Width="15"/>
+
+                    <ui:Button Click="Exit_button_Click"
+                               Grid.Column="4"
+                               Width="15"
+                               Height="15"
+                               BorderBrush="Transparent"
+                               Background="Transparent"/>
+
+
+                    <!-- кнопка настроек-->
+                    <ui:Image Source="Assets/settings_icon_2.png"
+                              Grid.Column="2"
+                              Height="20"
+                              Width="30"/>
+                    <!-- app name -->
+
+                    <ui:Image Source="Assets/name_1.png"
+                              Grid.Column="0"
+                              Width="130"
+                              Height="30"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Left"/>
+
+
+                </Grid>
+
+
+            </Border>
+            <Rectangle Fill="#26272b" 
+                       Width="800"
+                       Height="1"
+                       Grid.Row="0"
+                       VerticalAlignment="Bottom"
+                       Margin="0"/>
 
             <!-- Границы верхней части, где располагается поиск и 
         кнопка создания профиля -->
@@ -46,12 +102,15 @@
                     </Grid.ColumnDefinitions>
 
                     <ui:AutoSuggestBox Grid.Column="1"
+                                   VerticalAlignment="Center"
                                    FontSize="12"
                                    Background="#26272b"
+                                   Name ="Search_Box"
                                    Width="590"
-                                   Height="35"/>
+                                   Height="35" TextChanged="AutoSuggestBox_TextChanged"/>
 
                     <ui:Button Content="Создать профиль"
+                           VerticalAlignment="Center"
                            Grid.Column="3"
                            Background="#3c3bff"
                            Width="150"
@@ -67,7 +126,7 @@
             <Border Grid.Row="2"
                 Background="#26272b"
                 Width="750"
-                Height="500"
+                Height="425"
                 CornerRadius="10"
                 Name="Border_ProfileList">
                 <!-- Грид, где будет располагаться верхний текст, типо ник сайт и тд -->
@@ -111,13 +170,14 @@
 
                     <!-- стак панель, в котором будут отображаться профили -->
                     <ScrollViewer Grid.Row="1"
-                              Height="435"
+                              Height="360"
                               Width="750"
                               CanContentScroll="True"
-                              ScrollViewer.VerticalScrollBarVisibility="Auto">
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  VerticalAlignment="top">
 
 
-                        <StackPanel Height="435"
+                        <StackPanel Height="360"
                             Width="750"
                             x:Name="StackPanel_Profile">
                             <Border Background="#212226"
@@ -144,7 +204,16 @@
                             </Border>
 
                         </StackPanel>
+
                     </ScrollViewer>
+
+                    <Label Name="Hint_label"
+                           Content="Нет сохранённых профилей"
+                           Foreground="#848484"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Center"
+                           Grid.Row="1" 
+                           Margin="0,150,0,0"/>
                 </Grid>
 
             </Border>
@@ -155,12 +224,12 @@
                Margin="-10"/> -->
 
         </Grid>
-        
-        
+
+
         <!-- добавить кнопку с троеточием для корректной работы 
         с flayout, чтобы можно было удалять и изменять профили  -->
-		
-		<!-- Добавить toolbar (крестик, свернуть и т.д) -->
+
+        <!-- Добавить toolbar (крестик, свернуть и т.д) -->
 
 
     </Grid>
