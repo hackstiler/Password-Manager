@@ -29,6 +29,8 @@ namespace PasswordManager
 
         ApplicationContext db;
 
+        Encoder encoder;
+
         RegistrationProfileWindow registrationProfileWindow;
         FirstLaunchWindow firstLaunchWindow;
         VerificationWindow verificationWindow;
@@ -36,7 +38,7 @@ namespace PasswordManager
         
         public MainWindow()
         {
-            /*if (Properties.Settings.Default.FirstLaunch)
+/*            if (Properties.Settings.Default.FirstLaunch)
             {
                 firstLaunchWindow = new FirstLaunchWindow();
                 firstLaunchWindow.ShowDialog();
@@ -51,6 +53,7 @@ namespace PasswordManager
             InitializeComponent();
             db = new ApplicationContext();
             window = this;
+            Encoder.EncdoderInitialization();
             collectingDatafromDB();
 
         }
@@ -108,13 +111,13 @@ namespace PasswordManager
 
                 var gg = profile.encryption;
 
-
                 ProfileModel profileModel = new ProfileModel();
                 profileModel.EncryptionType = Encoder.StringToEncryptionType(profile.encryption);
                 profileModel.profileName = profile.profileName;
                 profileModel.websiteAdress = profile.websiteAdress;
                 profileModel.login = profile.login;
                 profileModel.password = profile.password;
+                profileModel.index = profiles.IndexOf(profile);
                 StackPanel_Profile.Children.Add(profileModel.CreateProfile());
 
                 Border separatorBorder = new Border();
@@ -159,5 +162,14 @@ namespace PasswordManager
         {
             Application.Current.Shutdown();
         }
+
+        public async void RemoveProfile(int index)
+        {
+            List<Profile> profiles = db.Profiles.ToList();
+            db.Profiles.Remove(profiles[index]);
+            await db.SaveChangesAsync();
+            collectingDatafromDB();
+        }
+
     }
 }

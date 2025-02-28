@@ -27,7 +27,9 @@ namespace PasswordManager.Models
         private Encoder.EncryptionType _encryptionType = Encoder.EncryptionType.None;
         private Encoder _encoder = new Encoder();
         private BitmapImage _profileImage;
-        
+        private int _index;
+
+
         public Encoder.EncryptionType EncryptionType
         {
             get {return _encryptionType; }
@@ -55,6 +57,12 @@ namespace PasswordManager.Models
         {
             get { return _password; }
             set { _password = value; }
+        }
+
+        public int index
+        {
+            get { return _index; }
+            set { _index = value; }
         }
 
 
@@ -184,6 +192,15 @@ namespace PasswordManager.Models
             loginButton.VerticalAlignment = VerticalAlignment.Center;
             loginButton.Width = 25;
             loginButton.Click += CopyLogin_Click;
+            loginButton.Foreground = Brushes.White;
+            loginButton.Padding = new Thickness(0);
+            loginButton.FontSize = 16;
+            loginButton.FontFamily = new System.Windows.Media.FontFamily("Segoe Fluent Icons");
+            loginButton.Content = "\uE8C8";
+
+            SymbolIcon symbolIcon = new SymbolIcon();
+            symbolIcon.Symbol = SymbolRegular.Copy16;
+            
 
 
             // добавить символ копирования -----------------------------------------------------------------------------------------------
@@ -225,11 +242,33 @@ namespace PasswordManager.Models
             passwordButton.Foreground = Brushes.White;
             passwordButton.VerticalAlignment = VerticalAlignment.Center;
             passwordButton.Width = 25;
-            passwordButton.Click += CopyPassword_Click; 
+            passwordButton.Click += CopyPassword_Click;
+            passwordButton.Foreground = Brushes.White;
+            passwordButton.Padding = new Thickness(0);
+            passwordButton.FontSize = 16;
+            passwordButton.FontFamily = new System.Windows.Media.FontFamily("Segoe Fluent Icons");
+            passwordButton.Content = "\uE8C8";
+            //passwordButton.Content = new SymbolIcon { Symbol = SymbolRegular.Copy24, FontSize = 15, Foreground = Brushes.White };
 
             passwordPanel.Children.Add(passwordButton);
 
-            // добавить символ копирования -----------------------------------------------------------------------------------------------
+            //ui deletebutton
+
+            Wpf.Ui.Controls.Button deleteButton = new Wpf.Ui.Controls.Button();
+            deleteButton.Height = 25;
+            deleteButton.Foreground = Brushes.White;
+            deleteButton.VerticalAlignment = VerticalAlignment.Center;
+            deleteButton.HorizontalAlignment = HorizontalAlignment.Right;
+            deleteButton.Margin = new Thickness(10);
+            deleteButton.Width = 25;
+            deleteButton.Click += RemoveProfile_Click;
+            deleteButton.Foreground = Brushes.White;
+            deleteButton.Padding = new Thickness(0);
+            deleteButton.FontSize = 16;
+            deleteButton.FontFamily = new System.Windows.Media.FontFamily("Segoe Fluent Icons");
+            deleteButton.Content = "\ue74d";
+            deleteButton.Name = "DeleteButton" + _index;
+            Grid.SetColumn(deleteButton, 4);
 
 
             grid.Children.Add(imageIcon);
@@ -237,6 +276,7 @@ namespace PasswordManager.Models
             grid.Children.Add(websiteAdress);
             grid.Children.Add(loginPanel);
             grid.Children.Add(passwordPanel);
+            grid.Children.Add(deleteButton);
 
             return mainBorder;
         }
@@ -259,6 +299,19 @@ namespace PasswordManager.Models
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
             thread.Join();
+        }
+
+        private void RemoveProfile_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = MainWindow.window;
+
+            var bt = (Wpf.Ui.Controls.Button)sender;
+            string btName = bt.Name;
+            btName = btName.Remove(0,"DeleteButton".Length);
+            int ind = Convert.ToInt32(btName);
+            mainWindow.RemoveProfile(Convert.ToInt32(bt.Name.Remove(0, "DeleteButton".Length)));
+
+
         }
     }
 

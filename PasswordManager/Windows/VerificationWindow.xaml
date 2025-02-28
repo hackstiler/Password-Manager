@@ -97,7 +97,7 @@
                            Content="Проверить"
                            FontSize="15"
                            Grid.Column="1"
-                           Click="Next_Btn_Click"/>
+                           Click="Next_Btn_Click" IsDefault="True"/>
 
                 </Grid>
 
@@ -123,7 +123,7 @@
                            Content="Выход"
                            FontSize="15"
                            Grid.Column="1"
-                           Click="Exit_Btn_Click"/>
+                           Click="Exit_Btn_Click" IsCancel="True"/>
 
                 </Grid>
 

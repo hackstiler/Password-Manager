@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,14 +45,27 @@ namespace PasswordManager
 
         public static string keyWord = "1emon!e";
 
+        private static RSACryptoServiceProvider rsa;
+        private static RSAParameters privateKey;
+        private static RSAParameters publicKey;
+
+
         public enum EncryptionType
         {
             encryptionVigenere,
             encryptionCaesar,
-            RCA,
+            RSA,
             None
         };
 
+
+        static public void EncdoderInitialization()
+        {
+            rsa = new RSACryptoServiceProvider();
+            rsa.KeySize = 2048;
+            privateKey = rsa.ExportParameters(true);
+            publicKey = rsa.ExportParameters(false);
+        }
 
         static public EncryptionType StringToEncryptionType(string str)
         {
@@ -63,7 +77,8 @@ namespace PasswordManager
                 case "encryptionVigenere":
                     return EncryptionType.encryptionVigenere;
                     break;
-                case "RCA":
+                case "RSA":
+                    return EncryptionType.RSA;
                     break;
             }
             return EncryptionType.None;
@@ -73,6 +88,7 @@ namespace PasswordManager
         //шифрование
         public string Encoding(string password, EncryptionType encryptionType)
         {
+
             string finalPassword = "";
 
             switch (encryptionType)
@@ -84,6 +100,13 @@ namespace PasswordManager
                 //Шифр Цезаря
                 case EncryptionType.encryptionCaesar:
                     finalPassword = TextToCaesarEncryption(password,2);
+                    break;
+                case EncryptionType.None:
+                    finalPassword = password;
+                    break;
+                //шифр RSA
+                case EncryptionType.RSA:
+                    
                     break;
             }
 
@@ -106,6 +129,9 @@ namespace PasswordManager
                 //Шифр Цезаря
                 case EncryptionType.encryptionCaesar:
                     finalPassword = CaesarEncryptionToText(password,2);
+                    break;
+                case EncryptionType.RSA:
+
                     break;
             }
 

@@ -159,7 +159,7 @@
                            Foreground="#848484"
                            Content="отменить"
                            FontSize="12"
-                           Grid.Column="0" Click="Cancel_Btn_Click"/>
+                           Grid.Column="0" Click="Cancel_Btn_Click" IsCancel="True"/>
 
                     <ui:Button Name="CreateProfile_Btn"
                            Height="30"
@@ -169,7 +169,7 @@
                            Foreground="White"
                            Content="создать профиль"
                            FontSize="12"
-                           Grid.Column="2" Click="CreateProfile_Btn_Click"/>
+                           Grid.Column="2" Click="CreateProfile_Btn_Click" IsDefault="True"/>
 
                 </Grid>
             
