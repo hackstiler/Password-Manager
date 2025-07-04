@@ -24,7 +24,7 @@ namespace PasswordManager.Models
         private string _websiteAdress;
         private string _login;
         private string _password;
-        private Encoder.EncryptionType _encryptionType = Encoder.EncryptionType.None;
+        private Encoder.EncryptionType _encryptionType = Encoder.EncryptionType.encryptionVigenere;
         private Encoder _encoder = new Encoder();
         private BitmapImage _profileImage;
         private int _index;
@@ -223,7 +223,7 @@ namespace PasswordManager.Models
 
             //passwordBox
             Wpf.Ui.Controls.PasswordBox passwordBox = new Wpf.Ui.Controls.PasswordBox();
-            passwordBox.Text =  _encoder.Decoding(_password,_encryptionType);
+            passwordBox.Text =  _encoder.Decoding(_password);
             passwordBox.IsReadOnly = true;
             passwordBox.ClearButtonEnabled = false;
             passwordBox.Width = 150;
@@ -284,7 +284,7 @@ namespace PasswordManager.Models
         private void CopyPassword_Click(object sender, RoutedEventArgs e)
         {
             var data = new DataObject();
-            data.SetData(DataFormats.UnicodeText, _encoder.Decoding(_password, _encryptionType), true);
+            data.SetData(DataFormats.UnicodeText, _encoder.Decoding(_password), true);
             var thread = new Thread(() => Clipboard.SetDataObject(data, true));
             thread.SetApartmentState(ApartmentState.STA);
             thread.Start();

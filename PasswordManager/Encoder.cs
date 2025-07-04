@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -41,7 +42,7 @@ namespace PasswordManager
     {
         private const string Alphabetical = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private const string Alphanumerical = "0123456789";
-        private const string Symbols = @"#¤%&/\()=?@£$€{[]}:;^´`½§_,.!*+-";
+        private const string SpecialSymbols = @"#¤%&/\()=?@£$€{[]}:;^´`½§_,.!*+-~";
 
         public static string keyWord = "1emon!e";
 
@@ -49,25 +50,14 @@ namespace PasswordManager
         private static RSAParameters privateKey;
         private static RSAParameters publicKey;
 
-
         public enum EncryptionType
         {
             encryptionVigenere,
             encryptionCaesar,
-            RSA,
-            None
         };
 
 
-        static public void EncdoderInitialization()
-        {
-            rsa = new RSACryptoServiceProvider();
-            rsa.KeySize = 2048;
-            privateKey = rsa.ExportParameters(true);
-            publicKey = rsa.ExportParameters(false);
-        }
-
-        static public EncryptionType StringToEncryptionType(string str)
+        /*static public EncryptionType StringToEncryptionType(string str)
         {
             switch (str)
             {
@@ -83,7 +73,7 @@ namespace PasswordManager
             }
             return EncryptionType.None;
 
-        }
+        }*/
 
         //шифрование
         public string Encoding(string password, EncryptionType encryptionType)
@@ -101,19 +91,18 @@ namespace PasswordManager
                 case EncryptionType.encryptionCaesar:
                     finalPassword = TextToCaesarEncryption(password,2);
                     break;
-                case EncryptionType.None:
-                    finalPassword = password;
-                    break;
-                //шифр RSA
-                case EncryptionType.RSA:
-                    
-                    break;
             }
 
 
 
             return finalPassword;
         }
+
+        public string Encoding(string password)
+        {
+            return TextToVigenereEncryption(password, keyWord);
+        }
+
 
         //рассшифровка
         public string Decoding(string password, EncryptionType encryptionType)
@@ -130,14 +119,13 @@ namespace PasswordManager
                 case EncryptionType.encryptionCaesar:
                     finalPassword = CaesarEncryptionToText(password,2);
                     break;
-                case EncryptionType.RSA:
-
-                    break;
             }
-
-
-
             return finalPassword;
+        }
+
+        public string Decoding(string password)
+        {
+            return VigenereEncryptionTextToText(password, keyWord);
         }
 
         public string p_TextToVigenereEncryption(string originalPassword, string originalKeyWord)
@@ -157,8 +145,8 @@ namespace PasswordManager
             char[] originalPasswordChars = originalPassword.ToCharArray();
             char[] KeyWordChars = new char[originalPasswordChars.Length];
             string EncryptionPassword = "";
-            char[] allChars = (Alphabetical + Alphanumerical + Symbols).ToCharArray();
-            string allCharsStr = Alphabetical + Alphanumerical + Symbols;
+            char[] allChars = (Alphabetical + Alphanumerical + SpecialSymbols).ToCharArray();
+            string allCharsStr = Alphabetical + Alphanumerical + SpecialSymbols;
 
             //подготовка ключ-слова
             int tempValue = 0;
@@ -207,8 +195,8 @@ namespace PasswordManager
             char[] encryptionPasswordChars = encryptionPassword.ToCharArray();
             char[] KeyWordChars = new char[encryptionPasswordChars.Length];
             string originalPassword = "";
-            char[] allChars = (Alphabetical + Alphanumerical + Symbols).ToCharArray();
-            string allCharsStr = Alphabetical + Alphanumerical + Symbols;
+            char[] allChars = (Alphabetical + Alphanumerical + SpecialSymbols).ToCharArray();
+            string allCharsStr = Alphabetical + Alphanumerical + SpecialSymbols;
 
             //подготовка ключ-слова
             int tempValue = 0;
@@ -250,8 +238,8 @@ namespace PasswordManager
             //начальные переменные
             char[] originalPasswordChars = originalPassword.ToCharArray();
             string EncryptionPassword = "";
-            char[] allChars = (Alphabetical + Alphanumerical + Symbols).ToCharArray();
-            string allCharsStr = Alphabetical + Alphanumerical + Symbols;
+            char[] allChars = (Alphabetical + Alphanumerical + SpecialSymbols).ToCharArray();
+            string allCharsStr = Alphabetical + Alphanumerical + SpecialSymbols;
 
             //реализация шифрования 
             for (int i = 0; i < originalPassword.Length; i++)
@@ -279,8 +267,8 @@ namespace PasswordManager
             //начальные переменные
             char[] encryptionPasswordChars = encryptionPassword.ToCharArray();
             string originalPassword = "";
-            char[] allChars = (Alphabetical + Alphanumerical + Symbols).ToCharArray();
-            string allCharsStr = Alphabetical + Alphanumerical + Symbols;
+            char[] allChars = (Alphabetical + Alphanumerical + SpecialSymbols).ToCharArray();
+            string allCharsStr = Alphabetical + Alphanumerical + SpecialSymbols;
 
             Console.WriteLine(encryptionPassword + "--------------------------------------------------------------------------------------------------------------");
 

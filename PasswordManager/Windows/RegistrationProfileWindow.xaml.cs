@@ -26,8 +26,8 @@ namespace PasswordManager
         {
             InitializeComponent();
             db = new ApplicationContext();
-            encryption_combobox.ItemsSource = Enum.GetValues(typeof(Encoder.EncryptionType));
-            encryption_combobox.SelectedValue = Encoder.EncryptionType.encryptionVigenere;
+            /*encryption_combobox.ItemsSource = Enum.GetValues(typeof(Encoder.EncryptionType));
+            encryption_combobox.SelectedValue = Encoder.EncryptionType.encryptionVigenere;*/
 
 
         }
@@ -60,7 +60,7 @@ namespace PasswordManager
             //шифрование пароля(можно и остальных данных, изменяется в настройках)
 
 
-            Profile profile = new Profile(login,password,profileName,websiteAdress,encryption_combobox.SelectedValue.ToString()) ;
+            Profile profile = new Profile(login,password,profileName,websiteAdress,"Null") ;
 
             db.Profiles.Add(profile);
             db.SaveChanges();

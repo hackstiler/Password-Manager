@@ -7,7 +7,7 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
         Title="RegistrationProfileWindow" 
-        Height="500" 
+        Height="425" 
         Width="350"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
@@ -24,7 +24,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="65"/>
-            <RowDefinition Height="375"/>
+            <RowDefinition Height="300"/>
             <RowDefinition Height="15"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
@@ -42,11 +42,12 @@
 
         </Border>
 
-        <Border Height="375"
+        <Border Height="300"
                 Width="325"
                 Background="#26272b"
                 CornerRadius="10"
-                Grid.Row="1">
+                Grid.Row="1"
+                VerticalAlignment="Top">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -124,7 +125,7 @@
                             Padding="10,5,0,0"/>
 
                 <!-- Тип шифрования -->
-                <TextBlock Text="Способ шифрования"
+                <!--<TextBlock Text="Способ шифрования"
                            VerticalAlignment="Center"
                            FontSize="17"
                            Foreground="#848484"
@@ -135,7 +136,7 @@
                           Height="35"
                           Margin="0,30,0,0"
                           Grid.Row="4"
-                          Padding="10,10,10,0"/>
+                          Padding="10,10,10,0"/>-->
 
             </Grid>
             

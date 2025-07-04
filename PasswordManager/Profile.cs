@@ -42,7 +42,7 @@ namespace PasswordManager
 
         public string encryption
         {
-            set { _encryption = Encoder.StringToEncryptionType(value); }
+            set { _encryption = Encoder.EncryptionType.encryptionVigenere; }
             get { return _encryption.ToString(); }
         }
 
@@ -50,11 +50,10 @@ namespace PasswordManager
         
         public Profile(string login, string password, string profileName, string websiteAdress, string encryption)
         {
-            _encryption = Encoder.StringToEncryptionType(encryption);
             this.login = login;
             this.profileName = profileName;
             this.websiteAdress = websiteAdress;
-            this.password = encoder.Encoding(password,Encoder.StringToEncryptionType(encryption));
+            this.password = encoder.Encoding(password);
 
         }
 

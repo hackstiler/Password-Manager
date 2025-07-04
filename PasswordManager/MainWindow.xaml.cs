@@ -38,7 +38,7 @@ namespace PasswordManager
         
         public MainWindow()
         {
-/*            if (Properties.Settings.Default.FirstLaunch)
+            if (Properties.Settings.Default.FirstLaunch)
             {
                 firstLaunchWindow = new FirstLaunchWindow();
                 firstLaunchWindow.ShowDialog();
@@ -48,12 +48,11 @@ namespace PasswordManager
                 verificationWindow = new VerificationWindow();
                 verificationWindow.ShowDialog();
 
-            }*/
+            }
 
             InitializeComponent();
             db = new ApplicationContext();
             window = this;
-            Encoder.EncdoderInitialization();
             collectingDatafromDB();
 
         }
@@ -95,9 +94,8 @@ namespace PasswordManager
 
         public void collectingDatafromDB()
         {
-            
             StackPanel_Profile.Children.Clear();
-
+            
             List<Profile> profiles = db.Profiles.ToList();
 
             if(profiles.Count == 0)
@@ -112,7 +110,7 @@ namespace PasswordManager
                 var gg = profile.encryption;
 
                 ProfileModel profileModel = new ProfileModel();
-                profileModel.EncryptionType = Encoder.StringToEncryptionType(profile.encryption);
+                //profileModel.EncryptionType = Encoder.StringToEncryptionType(profile.encryption);
                 profileModel.profileName = profile.profileName;
                 profileModel.websiteAdress = profile.websiteAdress;
                 profileModel.login = profile.login;
@@ -128,20 +126,22 @@ namespace PasswordManager
 
         private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            if (sender.Text != "" || sender.Text != " " || sender.Text != null)
+            string SearchWord = sender.Text;
+
+            if (SearchWord != "" || SearchWord != " " || SearchWord != null)
             {
                 StackPanel_Profile.Children.Clear();
                 List<Profile> profiles = db.Profiles.ToList();
                 foreach (var profile in profiles)
                 {
                     ProfileModel profileModel = new ProfileModel();
-                    profileModel.EncryptionType = Encoder.StringToEncryptionType(profile.encryption);
+                    //profileModel.EncryptionType = Encoder.StringToEncryptionType(profile.encryption);
                     profileModel.profileName = profile.profileName;
                     profileModel.websiteAdress = profile.websiteAdress;
                     profileModel.login = profile.login;
                     profileModel.password = profile.password;
 
-                    if (profileModel.profileName.Contains(sender.Text) || profileModel.websiteAdress.Contains(sender.Text) || profileModel.login.Contains(sender.Text))
+                    if (profileModel.profileName.ToLower().Contains(SearchWord) || profileModel.websiteAdress.ToLower().Contains(SearchWord) || profileModel.login.ToLower().Contains(SearchWord))
                     {
                         StackPanel_Profile.Children.Add(profileModel.CreateProfile());
                         Border separatorBorder = new Border();
@@ -152,6 +152,7 @@ namespace PasswordManager
             }
             else collectingDatafromDB();
         }
+
 
         private void Setting_button_Click(object sender, RoutedEventArgs e)
         {

@@ -36,7 +36,7 @@ namespace PasswordManager.Windows
 
         private void Next_Btn_Click(object sender, RoutedEventArgs e)
         {
-
+            Encoder.keyWord = KeyWord_textbox.Text;
             Encoder encoder = new Encoder();
             Properties.Settings.Default.FirstLaunch = false;
             Properties.Settings.Default.MainPassword = BCrypt.Net.BCrypt.EnhancedHashPassword(Password_textbox.Text,13);
